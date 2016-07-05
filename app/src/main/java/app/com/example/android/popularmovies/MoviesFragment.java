@@ -7,6 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -62,16 +67,22 @@ public class MoviesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        //GridView gridview_movies = (GridView) findViewById(R.id.gridview_movies);
-        //gridview_movies.setAdapter();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movies, container, false);
+        View view = inflater.inflate(R.layout.fragment_movies, container, false);
+
+        GridView gridview_movies = (GridView) view.findViewById(R.id.gridview_movies);
+        MovieAdapter mMovieAdapter = new MovieAdapter(getActivity(), new ArrayList<Movie>());
+        gridview_movies.setAdapter(mMovieAdapter);
+
+        // get image and set to View
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
