@@ -7,7 +7,7 @@
     <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:paddingBottom="0dp"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
@@ -34,6 +34,9 @@
             android:layout_below="@id/textView_title"
             android:adjustViewBounds="true"
             android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:paddingTop="16dp"
             android:src="@drawable/blank"
             app:layout_widthPercent="25%" />
@@ -43,10 +46,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textView_title"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="48dp"
             android:layout_toEndOf="@id/imageView_detail_poster"
-            android:text="Release Date"
+            android:text="@string/release_date"
             android:textColor="@color/colorLabel" />
 
         <TextView
@@ -66,7 +69,7 @@
             android:layout_alignStart="@+id/textView_release_date"
             android:layout_marginTop="16dp"
             android:layout_toEndOf="@id/imageView_detail_poster"
-            android:text="User Rating"
+            android:text="@string/user_rating"
             android:textColor="@color/colorLabel" />
 
         <RatingBar
@@ -109,7 +112,7 @@
             android:layout_alignStart="@id/view_hr"
             android:layout_below="@id/view_hr"
             android:layout_marginBottom="16dp"
-            android:text="Plot Synopsis"
+            android:text="@string/plot_synopsis"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorLabel" />
 
