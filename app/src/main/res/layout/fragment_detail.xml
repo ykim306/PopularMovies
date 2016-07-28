@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="0dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="0dp"
+        tools:context="app.com.example.android.popularmovies.DetailFragment">
+
+        <TextView
+            android:id="@+id/textView_title"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@color/colorHighlightBackground"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textColor="@color/colorDefaultText"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView_detail_poster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/textView_title"
+            android:adjustViewBounds="true"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            android:src="@drawable/blank"
+            app:layout_widthPercent="40%" />
+
+        <TextView
+            android:id="@+id/textView_label_release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView_title"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="48dp"
+            android:layout_toEndOf="@id/imageView_detail_poster"
+            android:text="Release Date"
+            android:textColor="@color/colorLabel" />
+
+        <TextView
+            android:id="@+id/textView_release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/textView_label_release_date"
+            android:layout_below="@id/textView_label_release_date"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/colorDefaultText" />
+
+        <TextView
+            android:id="@+id/textView_label_vote_average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView_release_date"
+            android:layout_alignStart="@+id/textView_release_date"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@id/imageView_detail_poster"
+            android:text="User Rating"
+            android:textColor="@color/colorLabel" />
+
+        <RatingBar
+            android:id="@+id/ratingBar_vote_average"
+            style="@style/customRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.1"
+            android:layout_marginTop="4dp"
+            android:layout_alignStart="@+id/textView_label_vote_average"
+            android:layout_below="@+id/textView_label_vote_average"/>
+
+        <TextView
+            android:id="@+id/textView_user_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/ratingBar_vote_average"
+            android:layout_below="@id/ratingBar_vote_average"
+            android:textColor="@color/colorDefaultText" />
+
+        <View
+            android:id="@+id/view_hr"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="false"
+            android:layout_below="@id/imageView_detail_poster"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorHR" />
+
+        <TextView
+            android:id="@+id/textView_label_overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/view_hr"
+            android:layout_below="@id/view_hr"
+            android:layout_marginBottom="16dp"
+            android:text="Plot Synopsis"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/colorLabel" />
+
+        <TextView
+            android:id="@+id/textView_overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/view_hr"
+            android:layout_alignStart="@id/textView_label_overview"
+            android:layout_below="@id/textView_label_overview"
+            android:paddingBottom="32dp"
+            android:textColor="@color/colorDefaultText" />
+
+
+    </android.support.percent.PercentRelativeLayout>
+</ScrollView>

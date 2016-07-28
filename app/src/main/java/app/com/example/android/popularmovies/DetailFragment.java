@@ -1,30 +1,35 @@
 package app.com.example.android.popularmovies;
 
 import android.content.Context;
-import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MoviesFragment.OnFragmentInteractionListener} interface
+ * {@link DetailFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MoviesFragment#newInstance} factory method to
+ * Use the {@link DetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MoviesFragment extends Fragment {
+public class DetailFragment extends Fragment {
 
     // TODO: Add Log TAG for debug
-    private static final String TAG_NAME = MoviesFragment.class.getSimpleName();
+    private static final String TAG_NAME = DetailFragment.class.getSimpleName();
+
+    private static final String MAX_VOTE_AVERAGE = " / 5.0";
+    //"poster_sizes": ["w92","w154","w185","w342","w500","w780","original"]
+    private static final String POSTER_PATH = "w342";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,9 +42,7 @@ public class MoviesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private ArrayList<Movie> movieList;
-
-    public MoviesFragment() {
+    public DetailFragment() {
         // Required empty public constructor
     }
 
@@ -49,22 +52,16 @@ public class MoviesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MoviesFragment.
+     * @return A new instance of fragment DetailFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MoviesFragment newInstance(String param1, String param2) {
-        MoviesFragment fragment = new MoviesFragment();
+    public static DetailFragment newInstance(String param1, String param2) {
+        DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList("movieList", movieList);
-        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -74,60 +71,47 @@ public class MoviesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        if(savedInstanceState==null||!savedInstanceState.containsKey("movieList")){
-            movieList = new ArrayList<>();
-        }else {
-            Log.d(TAG_NAME,"Saved Instance Retrieved");
-            movieList = savedInstanceState.getParcelableArrayList("movieList");
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_movies, container, false);
-
-        GridView gridView_movies = (GridView) view.findViewById(R.id.gridview_movies);
-        MovieAdapter mMovieAdapter = new MovieAdapter(getActivity(), new ArrayList<Movie>());
-        gridView_movies.setAdapter(mMovieAdapter);
-
-        String sortOption;
         Bundle bundle = getArguments();
-        if (bundle != null) {
-            if (bundle.containsKey("sortBy")) {
-                sortOption = bundle.getString("sortBy");
-            } else  {
-                sortOption = "popularity.desc";
-            }
-        } else {
-            sortOption = "popularity.desc";
-        }
+        Movie mMovie = bundle.getParcelable("movie_detail");
 
-        new TheMovieDbApi(sortOption, mMovieAdapter).execute();
+        View view = inflater.inflate(R.layout.fragment_detail, container, false);
+        ImageView imageView = (ImageView) view.findViewById(R.id.imageView_detail_poster);
+        TextView content_title = (TextView) view.findViewById(R.id.textView_title);
+        TextView content_release_date = (TextView) view.findViewById(R.id.textView_release_date);
+        TextView content_vote_average = (TextView) view.findViewById(R.id.textView_user_rating);
+        TextView content_overview = (TextView) view.findViewById(R.id.textView_overview);
+        RatingBar ratingBar = (RatingBar) view.findViewById(R.id.ratingBar_vote_average);
 
-        gridView_movies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Movie mMovie = (Movie) adapterView.getItemAtPosition(position);
+        content_title.setText(mMovie.getOriginal_title());
+        content_release_date.setText(mMovie.getRelease_date());
+        content_vote_average.setText(Float.toString(mMovie.getVote_average())+MAX_VOTE_AVERAGE);
+        content_overview.setText(mMovie.getOverview());
+        ratingBar.setRating(mMovie.getVote_average());
 
-                Intent intent = new Intent(getActivity(), DetailActivity.class)
-                        .putExtra("movie_detail", mMovie);
 
-                startActivity(intent);
+        // TODO: Use Picasso to fetch and load images into the ImageView
+        Picasso.with(getActivity())
+                .load(mMovie.getPoster_path(POSTER_PATH))
+                // .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .placeholder(R.drawable.blank)
+                .error(R.drawable.blank)
+                .into(imageView);
 
-                //onButtonPressed(view);
-            }
-        });
+        Log.d(TAG_NAME, mMovie.getPoster_path(POSTER_PATH));
 
         return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(View view) {
+    public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(view);
+            mListener.onFragmentInteraction(uri);
         }
     }
 
@@ -160,6 +144,6 @@ public class MoviesFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(View view);
+        void onFragmentInteraction(Uri uri);
     }
 }
