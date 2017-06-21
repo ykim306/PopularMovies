@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Class for asynchronous API calls
@@ -49,9 +50,7 @@ public class TheMovieDbApi extends AsyncTask<Void, Void, ArrayList<Movie>> {
             Log.d(TAG_NAME, result.getResults().toString());
         }
 
-        ArrayList<Movie> tempMovieArray = (ArrayList<Movie>) result.getResults();
-
-        return tempMovieArray;
+        return (ArrayList<Movie>) result.getResults();
     }
 
     @Override
@@ -63,7 +62,7 @@ public class TheMovieDbApi extends AsyncTask<Void, Void, ArrayList<Movie>> {
         BufferedReader reader = null;
 
         // Will contain the raw JSON response as a string.
-        String jsonMovieReponse = null;
+        String jsonMovieResponse = null;
         String certificationCountry = "US";
         String apiKey = BuildConfig.THE_MOVIE_DB_API_KEY;
 
@@ -85,7 +84,7 @@ public class TheMovieDbApi extends AsyncTask<Void, Void, ArrayList<Movie>> {
             cal.add(Calendar.MONTH, -3);
             Date tempDate = cal.getTime();
 
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
             Date today = Calendar.getInstance().getTime();
 
             String threeMonthBefore = df.format(tempDate);
@@ -105,7 +104,7 @@ public class TheMovieDbApi extends AsyncTask<Void, Void, ArrayList<Movie>> {
 
             Log.d(TAG_NAME, "Built URI " + builtUri.toString());
 
-            // Create the request to OpenWeatherMap, and open the connection
+            // Create the request to TheMovieDB API, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
@@ -132,7 +131,7 @@ public class TheMovieDbApi extends AsyncTask<Void, Void, ArrayList<Movie>> {
                 // Stream was empty.  No point in parsing.
                 return null;
             }
-            jsonMovieReponse = sb.toString();
+            jsonMovieResponse = sb.toString();
 
         } catch (IOException e) {
             Log.e(TAG_NAME, "Error ", e);
@@ -154,8 +153,8 @@ public class TheMovieDbApi extends AsyncTask<Void, Void, ArrayList<Movie>> {
 
         try {
 
-            Log.d(TAG_NAME, jsonMovieReponse);
-            return getMovieDataFromJson(jsonMovieReponse);
+            Log.d(TAG_NAME, jsonMovieResponse);
+            return getMovieDataFromJson(jsonMovieResponse);
 
         } catch (Exception e) {
             Log.e(TAG_NAME, e.getMessage(), e);

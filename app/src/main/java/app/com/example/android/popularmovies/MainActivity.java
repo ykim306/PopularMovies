@@ -1,7 +1,6 @@
 package app.com.example.android.popularmovies;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,8 +8,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements MoviesFragment.OnFragmentInteractionListener {

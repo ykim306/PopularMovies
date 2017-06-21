@@ -39,7 +39,9 @@
             android:paddingEnd="16dp"
             android:paddingTop="16dp"
             android:src="@drawable/blank"
-            app:layout_widthPercent="40%" />
+            android:contentDescription="@string/movie_poster"
+            app:layout_widthPercent="40%"
+            />
 
         <TextView
             android:id="@+id/textView_label_release_date"

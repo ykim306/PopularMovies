@@ -96,7 +96,7 @@ public class Movie implements Parcelable {
         this.vote_average = vote_average;
     }
 
-    // TODO: Start Parceable code
+    // TODO: Start Parcelable code
     private Movie(Parcel in) {
         this.id = in.readString();
         this.original_title = in.readString();
@@ -132,6 +132,6 @@ public class Movie implements Parcelable {
             return new Movie[i];
         }
     };
-// TODO: End Parceable code
+// TODO: End Parcelable code
 
 }

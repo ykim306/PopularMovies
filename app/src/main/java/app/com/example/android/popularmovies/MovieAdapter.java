@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * Populare Gridview with clickable movie posters
+ * Populate Gridview with clickable movie posters
  */
 public class MovieAdapter extends ArrayAdapter<Movie> {
 
@@ -88,7 +88,6 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
 
         // TODO: Use Picasso to fetch and load images into the ImageView
         Picasso.with(mActivity)
-                // "poster_sizes": ["w92","w154","w185","w342","w500","w780","original"]
                 .load(mMovies.get(position).getPoster_path(POSTER_PATH))
                 // .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .placeholder(R.drawable.blank)

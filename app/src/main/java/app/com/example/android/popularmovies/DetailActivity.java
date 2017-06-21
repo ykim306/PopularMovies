@@ -22,7 +22,7 @@ public class DetailActivity extends AppCompatActivity
         // displays the back button on the Action bar, for older versions
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Movie mMovie = (Movie) getIntent().getParcelableExtra("movie_detail");
+        Movie mMovie = getIntent().getParcelableExtra("movie_detail");
         Bundle bundle = new Bundle();
         bundle.putParcelable("movie_detail",mMovie);
 
